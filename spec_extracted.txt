@@ -1,0 +1,399 @@
+PAGES: 15
+
+
+===== PAGE 1 =====
+
+Prueba técnica programador
+Python
+Innovasoft S.A
+Derechos Reservados © Innovasoft S.A. | 2022
+
+===== PAGE 2 =====
+
+Página | 2
+Contenido
+Objetivo .................................................................................................................. 3
+Lineamientos técnicos ............................................................................................ 3
+General .................................................................................................................. 3
+Frontend ................................................................................................................. 3
+Marco de diseño ..................................................................................................... 4
+Contexto de la necesidad ....................................................................................... 5
+General .................................................................................................................. 5
+Detallado ................................................................................................................ 5
+Detalle por Componente ......................................................................................... 6
+Detalles de los componentes .................................................................................. 7
+Detalle Páginas ...................................................................................................... 7
+Login ....................................................................................................................... 7
+Registro .................................................................................................................. 8
+Home .................................................................................................................... 10
+Página de error ..................................................................................................... 10
+Consulta Clientes ................................................................................................. 10
+
+===== PAGE 3 =====
+
+Página | 3
+Objetivo
+Diseñar y desarrollar una aplicación en Python que permita dar solución y
+representación funcional a un proceso clásico de mantenimiento de clientes,
+utilizando para ello el API estándar provisto por Innovasoft S.A.
+La aplicación deberá consumir servicios REST existentes para realizar
+operaciones de autenticación y gestión de clientes.
+Lineamientos técnicos
+General
+• Se deben realizar todas las validaciones necesarias de tipos de datos,
+campos requeridos y formatos.
+• El código debe ser ordenado, legible y estructurado.
+• Se valorará el uso de buenas prácticas de desarrollo..
+• La aplicación debe ser configurable para ejecutarse en diferentes entornos.
+Lenguaje
+• Python 3.10 o superior.
+Framework sugerido
+Debe utilizarse el siguiente framework:
+• FastAPI
+Consumo de API
+Debe realizarse mediante:
+• httpx (modo asíncrono)
+Consumo de API
+El manejo de sesión debe implementarse utilizando MongoDB. Se debe persistir
+la siguiente información en la base de datos:
+• Token JWT
+• Datos del usuario autenticado
+• Timestamp de login
+• Cierre de sesión (debe eliminar el documento de sesión en MongoDB)
+
+===== PAGE 4 =====
+
+Página | 4
+Marco de diseño
+• La interfaz debe ser clara, profesional y funcional.
+• Diseño responsive.
+• Puede utilizar Bootstrap, Tailwind o CSS propio.
+• El estilo visual debe proyectar una imagen corporativa ejecutiva similar al
+de las imágenes desplegadas en este documento.
+
+===== PAGE 5 =====
+
+Página | 5
+Contexto de la necesidad
+General
+La empresa requiere una aplicación cliente desarrollada en Python que permita
+administrar los clientes de la institución mediante el API oficial.
+El sistema debe permitir:
+1. Registrar usuarios
+2. Iniciar sesión
+3. Listar clientes
+4. Consultar detalle
+5. Crear clientes
+6. Actualizar clientes
+7. Eliminar clientes
+Detallado
+• Todo el proceso gira en torno a los de un Cliente que tiene los siguientes
+campos:
+▪ Nombre
+▪ Apellidos
+▪ Identificación
+▪ Teléfono Celular
+▪ Teléfono Otros
+▪ Dirección
+▪ Fecha de Nacimiento
+▪ Fecha de Afiliación
+▪ Sexo (Masculino-Femenino)
+▪ Reseña Personal
+▪ Imagen (Imagen del Cliente) (Opcional)
+▪ Intereses (Lista desplegable)
+• Se deberá diseñar y programar un frontend en React JS que consuma la
+API local desarrollada por el candidato. Los prototipos visuales definidos
+en este documento deben respetarse.
+
+===== PAGE 6 =====
+
+Página | 6
+Detalle por Componente
+▪ Login
+o Página para inicio de sesión
+▪ Registro
+o Página para registro de usuarios del sistema
+▪ Página de error
+o Presentar la página de error que se presentaría en caso de que se
+desee acceder a una página que no exista en el sistema
+▪ Home
+o Página de entrada al sitio cuando se tenga un login exitoso
+▪ Consulta Clientes
+o Debe contener un listado en el cual se presente la información de
+los clientes de la empresa
+o Deberá presentar una sección de filtros para la información del
+listado
+o Debe proporcionar un mecanismo de salida para poder ver la
+información de un cliente determinado y poder editar su
+información
+o Debe tener el mecanismo de interacción más apropiado para
+permitir realizar las operaciones básicas que se ejecutan sobre el
+usuario
+• Crear
+• Eliminar
+• Detalle
+• Mantenimiento Clientes
+o Se encarga de realizar el proceso de registro de nuevos clientes
+que va a tener la institución o bien la actualización de un cliente
+existente
+
+===== PAGE 7 =====
+
+Página | 7
+Detalles de los componentes
+API Local
+El candidato debe desarrollar una API REST local utilizando FastAPI que actúe como
+intermediario entre el frontend en React y la API oficial de Innovasoft. El frontend
+únicamente debe comunicarse con esta API local; nunca directamente con la API de
+Innovasoft.
+Arquitectura general
+React JS → API Local (FastAPI) → API Innovasoft / MongoDB
+Responsabilidades de la API local
+• Exponer endpoints REST que el frontend React consume.
+• Consumir la API de Innovasoft mediante httpx en modo asíncrono.
+• Gestionar la sesión del usuario y el log de operaciones directamente en
+MongoDB.
+Integración con MongoDB
+El manejo de base de datos debe realizarse sobre una instancia local de MongoDB. El
+candidato es responsable de tenerla instalada y en ejecución en su entorno de
+desarrollo.
+Colección: sesiones
+Al realizar el login exitoso, la API local debe crear un documento en esta colección con
+los siguientes campos:
+• token: Token JWT retornado por la API de Innovasoft.
+• userid: ID del usuario en la API de Innovasoft.
+• username: Nombre del usuario autenticado.
+• login_timestamp: Fecha y hora del login en formato ISO 8601.
+Al cerrar sesión, la API local debe eliminar el documento correspondiente de esta
+colección.
+Colección: operaciones
+Cada vez que el usuario ejecute una operación CRUD sobre un cliente (crear,
+actualizar, eliminar), la API local debe registrar un documento en esta colección con los
+siguientes campos:
+• accion: Tipo de operación realizada (CREAR, ACTUALIZAR, ELIMINAR).
+• usuario: Username del usuario que ejecutó la acción.
+• cliente_id: ID del cliente afectado.
+• timestamp: Fecha y hora de la operación en formato ISO 8601.
+• resultado: Código HTTP de respuesta obtenido de la API de Innovasoft (ej.
+200, 400, 500).
+Los detalles proporcionados son de carácter ilustrativo a fin de que el desarrollador
+tenga una idea de los esperado en el proceso de diseño, maquetado y de
+comportamiento para el consume del api para gestionar la información en la base
+de datos.
+Para las peticiones al API debe utilizar la URL base:
+https://pruebareactjs.test-class.com/Api/
+
+===== PAGE 8 =====
+
+Página | 8
+Ver endpoints:
+https://pruebareactjs.test-class.com/Api/swagger/index.html
+Importante: Todos los endpoints descritos en este documento deben ser
+consumidos exclusivamente por la API local (FastAPI), nunca directamente desde
+el frontend React. El frontend React únicamente se comunica con la API local, y es
+esta quien realiza las peticiones a la API de Innovasoft mediante httpx en modo
+asíncrono.
+Detalle Páginas
+Login
+Comportamiento:
+• Es obligatorio el ingreso del usuario y contraseña, en caso de que no ingrese
+alguno de estos datos se debe mostrar un mensaje al usuario que los datos
+son requeridos.
+• “Recuérdame” debe permitir guardar el nombre del usuario para que al volver
+a cargar la página de login no sea necesario volver a digitar este dato.
+
+===== PAGE 9 =====
+
+Página | 9
+• Si no tiene un usuario deberá crear una cuenta por medio del link de “¿No
+tiene una cuenta? Regístrese”.
+• Al presionar “INICIAR SESIÓN” se debe llamar al endpoint, el cual si los
+credenciales son validados le retornará un json con los siguientes datos, los
+cuales necesitará más adelante:
+URL Endpoint (Post): URL base + “api/Authenticate/login”
+Ejemplo: https://pruebareactjs.test-class.com/Api/api/Authenticate/login
+Petición:
+{
+"username": "string",
+"password": "string"
+}
+Respuesta 200 Success:
+{
+"token":
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9
+yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYXJpdmVsIiwianRpIjoiYjA2
+ZDYxNzItZGQ4MC00ZTkxLTljYzYtODU5NmI0Y2QwMWY5IiwiaHR0cDovL3NjaGVtYXMubWljc
+m9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleH
+AiOjE2NTExMTcxNzIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjE5NTUiLCJhdWQiOiJodHR
+wOi8vbG9jYWxob3N0OjQyMDAifQ.LL_k8-oG4EsF8ba3nocf5tpK4WfXaXOOUKcEVm3Kdo8",
+"expiration": "2022-04-28T03:39:32Z",
+"userid": "c8c8b7f9-edd5-4b0b-b488-74d82747ac56",
+"username": "arivel"
+}
+El token y userid es necesario para las peticiones a los demás endpoints del Api.
+Registro
+
+===== PAGE 10 =====
+
+Página | 10
+Comportamiento:
+• Todos los campos son obligatorios.
+• Se debe validar que ingrese un correo válido.
+• La contraseña debe ser mayor a 8 y menor o igual a 20 caracteres, debe
+tener números, al menos una mayúscula y una minúscula.
+• Al presionar “REGISTRARSE” se debe llamar al endpoint, el cual si los datos
+son validados le retornará un json con los siguientes datos:
+URL Endpoint (Post): URL base + “api/Authenticate/register”
+Petición:
+{
+"username": "string",
+"email": "user@example.com",
+"password": "string"
+}
+Respuesta 200 Success:
+{
+"status": "Success",
+"message": "Usuario creado correctamente"
+}
+
+===== PAGE 11 =====
+
+Página | 11
+Home
+Es la pantalla al ingresar del login, debe tener la opción de cuentas clientes para
+redireccionar a la consulta de clientes, también el menú INICIO debe regresar a esta página
+de home si se está mostrando otro componente, adicional debe mostrar el nombre del
+usuario en sesión tanto en la barra superior como en el menú lateral, debe permitir cerrar
+sesión (botón a la derecha de la barra superior)
+Página de error
+Consulta Clientes
+
+===== PAGE 12 =====
+
+Página | 12
+Comportamiento:
+• Para buscar clientes existentes utiliza el botón buscar (Lupa).
+• Para agregar un nuevo cliente debe utilizar el botón de Agregar (redirecciona
+al componente de Mantenimiento Cliente).
+• Para editar un cliente determinado debe utilizar el botón de editar (Lápiz)
+(redirecciona al componente de Mantenimiento Cliente y carga la
+información del cliente).
+• El icono de eliminar debe borrar el cliente seleccionado.
+• El botón de Regresar debe volver al home.
+• Al eliminar se debe mostrar un modal o popup que le solicite al usuario la
+confirmación para eliminar el registro.
+URL Endpoint Buscar (Post): URL base + “api/Cliente/Listado” (autorización por
+Bearer Token)
+Petición:
+{
+"identificacion": "string", (no es obligatorio)
+"nombre": "string", (no es obligatorio)
+"usuarioId": "string" (id del usuario en sesión)
+}
+Retorna (arreglo):
+[
+{
+"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+"identificacion": "string",
+"nombre": "string",
+"apellidos": "string"
+}
+]
+URL Endpoint Eliminar (Delete): URL base + “api/Cliente/Eliminar/{IdCliente}”
+(autorización por Bearer Token)
+
+===== PAGE 13 =====
+
+Página | 13
+Respuesta: 200 Success
+Mantenimiento Clientes
+Comportamiento:
+• Todos los campos son obligatorios (deben mostrar * en la etiqueta) excepto
+la imagen del cliente.
+• Para mostrar y cargar imágenes se debe utilizar el componente de imagen
+que está a la par del título “Mantenimiento de clientes”.
+• Primero se debe cargar el listado de Intereses.
+• Si es para editar un cliente existente se debe cargar la información de este.
+• El botón Guardar permite crear o actualizar un cliente según sea el caso.
+• El botón de regresar debe volver a la página de consulta clientes.
+• Los datos de la imagen deben manejarse en base64, esta no es obligatoria.
+• Para el Género se maneja M para Masculino y F para Femenino.
+• Luego de crear o actualizar un cliente existente se debe redirigir a la página
+de consulta de clientes.
+URL Endpoint Carga Listado (Get): URL base + “api/Intereses/Listado”
+Petición: no recibe parámetros
+Respuesta (arreglo):
+[
+{
+"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+"descripcion": "string"
+}
+]
+URL Endpoint Obtener Info Cliente (Get): URL base +
+“/api/Cliente/Obtener/{IdCliente}”
+Respuesta 200 Success:
+{
+"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+
+===== PAGE 14 =====
+
+Página | 14
+"nombre": "string", (tamaño máximo 50)
+"apellidos": "string", (tamaño máximo 100)
+"identificacion": "string", (tamaño máximo 20)
+"telefonoCelular": "string",(tamaño máximo 20)
+"otroTelefono": "string",(tamaño máximo 20)
+"direccion": "string",(tamaño máximo 200)
+"fNacimiento": "2022-04-27T05:27:43.365Z",
+"fAfiliacion": "2022-04-27T05:27:43.365Z",
+"sexo": "F/M",(tamaño máximo 1)
+"resenaPersonal": "string", (tamaño máximo 200)
+"imagen": "string", (base64 de la imagen)
+"interesesId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+URL Endpoint Crear Cliente (Post): URL base + “/api/Cliente/Crear”
+Petición:
+{
+"nombre": "string", (tamaño máximo 50)
+"apellidos": "string", (tamaño máximo 100)
+"identificacion": "string", (tamaño máximo 20)
+"telefonoCelular": "string",(tamaño máximo 20)
+"otroTelefono": "string",(tamaño máximo 20)
+"direccion": "string",(tamaño máximo 200)
+"fNacimiento": "2022-04-27",
+"fAfiliacion": "2022-04-27",
+"sexo": "F/M",(tamaño máximo 1)
+"resenaPersonal": "string", (tamaño máximo 200)
+"imagen": "string", (base64 de la imagen)
+"interesFK": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+"usuarioId": "string" (Id usuario en sesión)
+}
+Respuesta: 200 Success
+URL Endpoint Actualizar Cliente (Post): URL base + “/api/Cliente/Actualizar”
+Petición:
+{
+"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+"nombre": "string",
+"apellidos": "string",
+"identificacion": "string",
+"celular": "string",
+"otroTelefono": "string",
+"direccion": "string",
+"fNacimiento": "2022-04-27T05:29:49.210Z",
+"fAfiliacion": "2022-04-27T05:29:49.210Z",
+"sexo": "string",
+"resennaPersonal": "string",
+"imagen": "string",
+"interesFK": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+"usuarioId": "string" (Id usuario en sesión)
+}
+Respuesta: 200 Success
+NOTAS IMPORTANTES
+
+===== PAGE 15 =====
+
+Página | 15
+1. Si se presenta algún problema cuando se realiza una petición al API se debe
+mostrar un mensaje al usuario que hubo un inconveniente con la transacción.
+2. Luego de crear/registrar, actualizar o eliminar se debe mostrar un mensaje al
+usuario indicando que el proceso se realizó correctamente.
