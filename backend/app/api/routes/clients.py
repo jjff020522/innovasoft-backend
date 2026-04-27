@@ -25,7 +25,7 @@ from app.models.common import MessageResponse
 from app.services.innovasoft_api import InnovasoftAPIService
 
 
-router = APIRouter(prefix="/api/clientes", tags=["Clientes"])
+router = APIRouter()
 
 
 def _extract_client_id(payload: dict[str, Any] | list[Any] | str | None) -> str:

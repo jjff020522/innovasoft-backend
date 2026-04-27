@@ -19,7 +19,7 @@ from app.models.common import MessageResponse
 from app.services.innovasoft_api import InnovasoftAPIService
 
 
-router = APIRouter(prefix="/api", tags=["Authentication"])
+router = APIRouter()
 
 
 @router.post("/login", response_model=LoginResponse)
