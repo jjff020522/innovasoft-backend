@@ -13,7 +13,7 @@ def handler(event, context):
     railway_base = os.environ.get('RAILWAY_API_URL', 'https://innovasoft-backend-production.up.railway.app')
 
     # Full URL - add /api/ prefix since Railway API uses it
-    api_path = 'api' + path
+    api_path = 'api/' + path
     url = urljoin(railway_base, api_path.lstrip('/'))
 
     # Query params
