@@ -55,7 +55,7 @@ async def startup_event() -> None:
     try:
         await connect_to_mongo(settings)
     except Exception as e:
-        print(f"Failed to connect to MongoDB: {e}")  # Force redeploy
+        print(f"Failed to connect to MongoDB: {e}")  # Force redeploy 2
 
 
 @app.on_event("shutdown")
