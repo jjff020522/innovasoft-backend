@@ -20,7 +20,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.get_cors_origins_list(),
+    allow_origins=["*"],  # Temporal para probar, luego pon la URL de Netlify
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -58,3 +58,8 @@ async def startup_event() -> None:
 @app.on_event("shutdown")
 async def shutdown_event() -> None:
     await disconnect_from_mongo()
+
+
+@app.get("/")
+def check_health():
+    return {"status": "Funcionando correctamente en Railway"}

@@ -28,11 +28,11 @@ class Settings(BaseSettings):
 
     mongodb_uri: str = Field(
         default="mongodb://localhost:27017",
-        validation_alias="LOCAL_API_MONGODB_URI",
+        validation_alias="MONGODB_URI",
     )
     mongodb_db_name: str = Field(
         default="innovasoft_local",
-        validation_alias="LOCAL_API_MONGODB_DB_NAME",
+        validation_alias="MONGODB_DB_NAME",
     )
 
     cors_origins: str = Field(
