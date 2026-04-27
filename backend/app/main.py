@@ -52,7 +52,7 @@ async def health_check() -> dict[str, str]:
 
 @app.on_event("startup")
 async def startup_event() -> None:
-    await connect_to_mongo(settings)
+    #await connect_to_mongo(settings)
 
 
 @app.on_event("shutdown")
