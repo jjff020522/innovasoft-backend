@@ -140,28 +140,28 @@ async function request(path, { method = "GET", token, body } = {}) {
 }
 
 export function loginUser(credentials) {
-  return request("/api/auth/login", {
+  return request("/auth/login", {
     method: "POST",
     body: credentials,
   });
 }
 
 export function registerUser(payload) {
-  return request("/api/auth/register", {
+  return request("/auth/register", {
     method: "POST",
     body: payload,
   });
 }
 
 export function logoutUser(token) {
-  return request("/api/auth/logout", {
+  return request("/auth/logout", {
     method: "POST",
     token,
   });
 }
 
 export function getSession(token) {
-  return request("/api/auth/session", {
+  return request("/auth/session", {
     method: "GET",
     token,
   });
