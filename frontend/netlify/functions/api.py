@@ -1,7 +1,7 @@
 import json
 import os
-import requests
 from urllib.parse import urljoin
+from urllib.request import urlopen, Request
 
 def handler(event, context):
     # Remove the /api prefix from the path
@@ -18,27 +18,27 @@ def handler(event, context):
 
     # Query params
     if event.get('queryStringParameters'):
-        url += '?' + '&'.join([f"{k}={v}" for k, v in event['queryStringParameters'].items()])
+        from urllib.parse import urlencode
+        url += '?' + urlencode(event['queryStringParameters'])
 
     # Headers, excluding some
     headers = {k: v for k, v in event.get('headers', {}).items()
                if k.lower() not in ['host', 'x-forwarded-for', 'x-netlify-headers']}
 
-    # Forward the request
-    try:
-        response = requests.request(
-            method=event['httpMethod'],
-            url=url,
-            headers=headers,
-            data=event.get('body'),
-            timeout=30
-        )
+    # Data
+    data = event.get('body')
+    if data:
+        data = data.encode('utf-8')
 
-        return {
-            'statusCode': response.status_code,
-            'headers': {k: v for k, v in response.headers.items() if k.lower() not in ['transfer-encoding']},
-            'body': response.text
-        }
+    # Forward the request
+    req = Request(url, data=data, headers=headers, method=event['httpMethod'])
+    try:
+        with urlopen(req) as response:
+            return {
+                'statusCode': response.status,
+                'headers': {k: v for k, v in response.headers.items() if k.lower() not in ['transfer-encoding']},
+                'body': response.read().decode('utf-8')
+            }
     except Exception as e:
         return {
             'statusCode': 500,
