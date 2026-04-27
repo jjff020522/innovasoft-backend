@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 from app.core.config import Settings
@@ -12,9 +14,12 @@ database: AsyncIOMotorDatabase | None = None
 async def connect_to_mongo(settings: Settings) -> None:
     global mongo_client, database
 
-    mongo_client = AsyncIOMotorClient(settings.mongodb_uri)
+    uri = os.getenv("MONGODB_URI", settings.mongodb_uri)
+    db_name = os.getenv("MONGODB_DB_NAME", settings.mongodb_db_name) or "railway"
+
+    mongo_client = AsyncIOMotorClient(uri)
     await mongo_client.admin.command("ping")
-    database = mongo_client[settings.mongodb_db_name]
+    database = mongo_client[db_name]
 
     await database.sesiones.create_index("token", unique=True)
     await database.sesiones.create_index("userid")
