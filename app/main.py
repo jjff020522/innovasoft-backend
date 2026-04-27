@@ -50,9 +50,12 @@ async def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
-# @app.on_event("startup")
-# async def startup_event() -> None:
-#     await connect_to_mongo(settings)
+@app.on_event("startup")
+async def startup_event() -> None:
+    try:
+        await connect_to_mongo(settings)
+    except Exception as e:
+        print(f"Failed to connect to MongoDB: {e}")
 
 
 @app.on_event("shutdown")
