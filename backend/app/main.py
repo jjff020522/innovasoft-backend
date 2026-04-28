@@ -27,7 +27,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router, prefix="", tags=["auth"])
-app.include_router(clients_router, prefix="/api/clientes", tags=["clientes"])
+app.include_router(clients_router, prefix="/api/api/clientes", tags=["clientes"])
 
 
 @app.exception_handler(ExternalAPIError)
