@@ -140,35 +140,35 @@ async function request(path, { method = "GET", token, body } = {}) {
 }
 
 export function loginUser(credentials) {
-  return request("/api/login", {
+  return request("/login", {
     method: "POST",
     body: credentials,
   });
 }
 
 export function registerUser(payload) {
-  return request("/api/register", {
+  return request("/register", {
     method: "POST",
     body: payload,
   });
 }
 
 export function logoutUser(token) {
-  return request("/api/logout", {
+  return request("/logout", {
     method: "POST",
     token,
   });
 }
 
 export function getSession(token) {
-  return request("/api/session", {
+  return request("/session", {
     method: "GET",
     token,
   });
 }
 
 export function listClients(token, payload) {
-  return request("/api/clientes/listado", {
+  return request("/clientes/listado", {
     method: "POST",
     token,
     body: payload,
@@ -176,21 +176,21 @@ export function listClients(token, payload) {
 }
 
 export function getInterests(token) {
-  return request("/api/clientes/intereses", {
+  return request("/clientes/intereses", {
     method: "GET",
     token,
   });
 }
 
 export function getClient(token, clientId) {
-  return request(`/api/clientes/obtener/${clientId}`, {
+  return request(`/clientes/obtener/${clientId}`, {
     method: "GET",
     token,
   });
 }
 
 export function createClient(token, payload) {
-  return request("/api/clientes/crear", {
+  return request("/clientes/crear", {
     method: "POST",
     token,
     body: payload,
@@ -198,7 +198,7 @@ export function createClient(token, payload) {
 }
 
 export function updateClient(token, payload) {
-  return request("/api/clientes/actualizar", {
+  return request("/clientes/actualizar", {
     method: "POST",
     token,
     body: payload,
@@ -206,7 +206,7 @@ export function updateClient(token, payload) {
 }
 
 export function deleteClient(token, clientId) {
-  return request(`/api/clientes/eliminar/${clientId}`, {
+  return request(`/clientes/eliminar/${clientId}`, {
     method: "DELETE",
     token,
   });
