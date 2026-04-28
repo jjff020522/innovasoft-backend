@@ -59,7 +59,7 @@ async def startup_event() -> None:
 async def shutdown_event() -> None:
     await disconnect_from_mongo()
 
-# Force deploy 3
+# Force deploy 4
 
 
 @app.get("/")
