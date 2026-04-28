@@ -51,12 +51,14 @@ async def login(
 async def register(
     payload: RegisterRequest,
     innovasoft_service: InnovasoftAPIService = Depends(get_innovasoft_service),
+    repository: MongoRepository = Depends(get_repository),
 ) -> RegisterResponse:
     response = await innovasoft_service.register(
         username=payload.username,
         email=payload.email,
         password=payload.password,
     )
+    await repository.upsert_user(payload.username, payload.email)
     return RegisterResponse.model_validate(response)
 
 

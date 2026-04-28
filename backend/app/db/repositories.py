@@ -26,6 +26,10 @@ class MongoRepository:
     def clientes_ocultos(self):
         return self.database.clientes_ocultos
 
+    @property
+    def users(self):
+        return self.database.users
+
     async def upsert_session(
         self,
         token: str,
@@ -88,6 +92,23 @@ class MongoRepository:
                     "client_id": client_id,
                     "hidden_by": username,
                     "hidden_timestamp": utc_now_iso(),
+                }
+            },
+            upsert=True,
+        )
+
+    async def upsert_user(
+        self,
+        username: str,
+        email: str,
+    ) -> None:
+        await self.users.update_one(
+            {"username": username},
+            {
+                "$set": {
+                    "username": username,
+                    "email": email,
+                    "registered_timestamp": utc_now_iso(),
                 }
             },
             upsert=True,
